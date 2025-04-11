@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Ping-pong</title>
+</head>
+<body>
+    <header>
+        <div class="main">Ping-pong</div>
+        <h1 class="count">00:00</h1>
+        <img src="/imgs/info.png" class="btn-info">
+        <img src="/imgs/menu.png" class="btn-menu">
+    </header>
+    <div class="table">
+        <div class="player1"></div>
+        <div class="player2"></div>
+        <div class="net"></div>
+        <div class="ball"></div>
+    </div>
+</body>
+<style>
+    body {
+        width: 1440px;
+        height: 1024px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: rgb(212, 212, 212);
+    }
+
+    header {
+        width: 1420px;
+        height: 45px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .main {
+        display: block;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: blueviolet;
+        color: white;
+        height: fit-content;
+        font-size: 20px;
+    }
+
+    .btn-info {
+        width: 40px;
+        height: 40px;
+        margin-left: 35%;
+    }
+
+    .btn-menu {
+        width: 40px;
+        height: 40px;
+        margin-left: 2%;
+    }
+
+    .count {
+        margin-left: 40%;
+    }
+
+    .table {
+        width: 1420px;
+        height: 800px;
+        background-color: rgb(8, 99, 0);
+        border-radius: 5px;
+    }
+
+    .ball {
+        left: 715px;
+        top: 445px;
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: white;
+        border-radius: 5px;
+        border: solid blueviolet 1px;
+    }
+
+    .net {
+        height: 800px;
+        width: 2px;
+        background-color: black;
+        left: 720px;
+        position: absolute;
+    }
+
+    .player1 {
+        width: 10px;
+        height: 200px;
+        border-radius: 5px;
+        background-color: blue;
+        top: 345px;
+        left: 30px;
+        position: absolute;
+    }
+
+    .player2 {
+        width: 10px;
+        height: 200px;
+        border-radius: 5px;
+        background-color: red;
+        top: 345px;
+        left: 1415px;
+        position: absolute;
+    }
+</style>
+<script>
+
+</script>
+</html>
