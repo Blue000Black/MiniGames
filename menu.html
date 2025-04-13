@@ -12,15 +12,15 @@
     </header>
     <div class="main">
         <div class="card">
-            <img src="imgs/2048.png">
+            <img src="imgs/2048.png" id="2048">
             <p>2048</p>
         </div>
         <div class="card">
-            <img src="imgs/ping-pong.webp">
+            <img src="imgs/ping-pong.webp" id="ping-pong">
             <p>Ping-pong</p>
         </div>
         <div class="card">
-            <img src="imgs/balls.png">
+            <img src="imgs/balls.png" id="balls">
             <p>Balls</p>
         </div>
     </div>
@@ -108,6 +108,17 @@
     }
 </style>
 <script>
-
+    let _2048 = document.getElementById('2048')
+    let ping_pong = document.getElementById('ping-pong')
+    let balls = document.getElementById('balls')
+    _2048.addEventListener('click', function () {
+        
+    })
+    ping_pong.addEventListener('click', function () {
+        window.open("ping-pong.html")
+    })
+    balls.addEventListener('click', function () {
+        
+    })
 </script>
 </html>
