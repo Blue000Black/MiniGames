@@ -1,0 +1,600 @@
+<!-- filename: index.html -->
+<!DOCTYPE html> 
+<html lang="en"> 
+  
+<head> 
+    <meta charset="UTF-8" /> 
+    <meta http-equiv="X-UA-Compatible" 
+        content="IE=edge" /> 
+    <meta name="viewport" content= 
+        "width=device-width, initial-scale=1.0" /> 
+    <!-- Importing Google Fonts API Link -->
+    <link rel="preconnect" 
+        href="https://fonts.googleapis.com" /> 
+    <link rel="preconnect" 
+        href="https://fonts.gstatic.com" 
+        crossorigin /> 
+    <link href= 
+"https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Ubuntu:wght@700&display=swap"
+        rel="stylesheet" /> 
+  
+    <!-- Importing our CSS File where we  
+        write all our styles -->
+    <link rel="stylesheet" href="./style.css" /> 
+</head> 
+
+<body> 
+    <h1 class = "zxc"> Meme 2048</h1>
+    <div class = "buttons"> 
+        <img src="menu.png" class = 'menuu'> </a>
+        <img src="info.png" class = 'infoo'>
+
+    <div class="container"> 
+        <div class="score"> 
+            <p class="score-title">Score:</p> 
+            <p class="score-value">0</p> 
+        </div> 
+
+        <div class="result"></div> 
+  
+        <div class="grid"> 
+            <div class="grid-item"> 
+                <p id="1"></p> 
+            </div> 
+            <div class="grid-item"> 
+                <p id="2"></p> 
+            </div> 
+            <div class="grid-item"> 
+                <p id="3"></p> 
+            </div> 
+            <div class="grid-item"> 
+                <p id="4"></p> 
+            </div> 
+            <div class="grid-item"> 
+                <p id="5"></p> 
+            </div> 
+            <div class="grid-item"> 
+                <p id="6"></p> 
+            </div> 
+            <div class="grid-item"> 
+                <p id="7"></p> 
+            </div> 
+            <div class="grid-item"> 
+                <p id="8"></p> 
+            </div> 
+            <div class="grid-item"> 
+                <p id="9"></p> 
+            </div> 
+            <div class="grid-item"> 
+                <p id="10"></p> 
+            </div> 
+            <div class="grid-item"> 
+                <p id="11"></p> 
+            </div> 
+            <div class="grid-item"> 
+                <p id="12"></p> 
+            </div> 
+            <div class="grid-item"> 
+                <p id="13"></p> 
+            </div> 
+            <div class="grid-item"> 
+                <p id="14"></p> 
+            </div> 
+            <div class="grid-item"> 
+                <p id="15"></p> 
+            </div> 
+            <div class="grid-item"> 
+                <p id="16"></p> 
+            </div> 
+        </div> 
+    </div> 
+    <script src="script.js"></script> 
+</body> 
+<style>
+
+:root { 
+    --primary-text-color: #27374d; 
+} 
+  
+* { 
+    box-sizing: border-box; 
+    padding: 0%; 
+    margin: 0%; 
+    font-family: "Montserrat", sans-serif; 
+    font-family: "Ubuntu", sans-serif; 
+} 
+  
+body { 
+    background-color: #dda15e; 
+    color: var(--primary-text-color); 
+    min-height: 100vh; 
+} 
+  
+.container { 
+    width: 400px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+} 
+  
+.score { 
+    width: 100%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-evenly; 
+    flex-wrap: wrap; 
+    font-size: 2rem; 
+    text-align: center; 
+    padding: 10px; 
+} 
+  
+.score-title { 
+    width: 50%; 
+} 
+  
+.score-value { 
+    width: 50%; 
+} 
+  
+.result { 
+    font-size: 2rem; 
+    text-align: center; 
+    padding: 10px; 
+} 
+  
+.grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+    grid-template-rows: 1fr 1fr 1fr 1fr; 
+    width: 400px; 
+    height: 400px; 
+    background-color: rgb(209, 207, 207); 
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.753); 
+} 
+  
+.grid-item { 
+    border: 1px solid var(--primary-text-color); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 2rem; 
+} 
+  
+.rules { 
+    border: 2px solid white; 
+    padding: 20px; 
+} 
+  
+.rules>h1 { 
+    width: 100%; 
+    font-size: 2rem; 
+    text-align: center; 
+    padding: 10px; 
+} 
+  
+.rules-para { 
+    padding: 20px 10px; 
+}
+
+
+.menuu {
+    width: 10vh;
+}
+
+.infoo {
+    width: 10vh;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+
+.s2{
+    
+    background-size: cover;
+}
+
+.zxc{
+    background-color: #781ec2;
+    display: block;
+    padding-top: 10px;
+    padding-left: 10px;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 0.5vh;
+    border: 2px solid #150224;
+}
+</style>
+<script>
+    // Filename: script.js 
+// Get the game grid 
+const gridItems = [ 
+    ...document.querySelectorAll(".grid-item"), 
+]; 
+const score_val = document.querySelector(".score-value"); 
+const result = document.querySelector(".result"); 
+let score = 0; 
+let moves = 0; 
+let moveFactor = 4; 
+let options = [ 
+    2, 4, 8, 2, 4, 8, 2, 2, 4, 4, 2, 8, 2, 2, 4, 4, 2, 
+]; 
+let matrix = []; 
+let prevMatrix; 
+
+let colors = [ 
+    "url('a3a3a3.png')", 
+    "url('scale_1200 (1).jpg')", 
+    "url('orig (2).webp')", 
+    "url('a3a2281b-9a6a-4110-9d47-71e6d3be5abe.jpeg')", 
+    "url('1c5b475ac1c36c3a22adf774276eb52b.png')", 
+    "url('jcW6YYWm630xpXicXGPaZ-JvLqMrVGSZdAomh65xBqMhINt3Z0bSlrLvMZVC7dWmq5nc9W_5mwdjPxxJRj11Yjmt.jpg')", 
+    "url('36de72992ef185778685cd3b56d0c772.jpg')", 
+    "url('orig (3).webp')", 
+    "url('scale_1200 (2).jpg')", 
+    "url('фунчоза.jpg')", 
+    "url('315fbce7-8fd7-4b37-b66e-d2f3647cb5b7.jpg')", 
+    "url('c408715d-718c-42b2-b73a-161fc2eaacea.jpg')", 
+]; 
+  
+let infoo = document.querySelector('.infoo')
+let inf = `Об игре Meme 2048: 
+эта игра мемное воплощение обычной версии 2048 в который мемы идут по нарастающей соответственно их номерам
+управление: 
+-Стрелки вверх, вниз , влево и вправо для перемещения карточек
+- кнопка info для просмотра того, что вы сейчас читаете
+-кнопка menu(3 точки) для выхода в главное меню
+Удачной игры!`
+
+
+infoo.addEventListener('click', function () {
+alert(inf)
+})
+
+// Create the starting game grid. 
+let row = []; 
+for (let index = 1; index < gridItems.length + 1; index++) { 
+    if (index % 4 === 0) { 
+        let item = gridItems[index - 1]; 
+        item.firstElementChild.innerText = ""; 
+        row.push(item); 
+        matrix.push(row); 
+        row = []; 
+    } else { 
+        let item = gridItems[index - 1]; 
+        item.firstElementChild.innerText = ""; 
+        row.push(item); 
+    } 
+} 
+  
+// Assign any two grid blocks the value of 2 
+const rowIdx = Math.floor(Math.random() * 4); 
+const colIdx = Math.floor(Math.random() * 4); 
+let rowIdx2 = Math.floor(Math.random() * 4); 
+let colIdx2 = Math.floor(Math.random() * 4); 
+  
+if (rowIdx === rowIdx2 && colIdx === colIdx2) { 
+    rowIdx2 = Math.floor(Math.random() * 4); 
+    colIdx2 = Math.floor(Math.random() * 4); 
+} 
+  
+matrix[rowIdx][colIdx].firstElementChild.textContent = 2; 
+matrix[rowIdx2][colIdx2].firstElementChild.textContent = 2; 
+  
+let availIndexes = updateAvailIndexes(); 
+  
+updateColors(); 
+  
+// Make web page able to listen to keydown event 
+document.addEventListener("keydown", moveBlocks); 
+  
+// Method to extract columns from an 2D array. 
+const arrayColumn = (arr, n) => arr.map((x) => x[n]); 
+  
+function moveBlocks(e) { 
+    if ( 
+        e.key !== "ArrowLeft" && 
+        e.key !== "ArrowRight" && 
+        e.key !== "ArrowUp" && 
+        e.key !== "ArrowDown"
+    ) { 
+        return; 
+    } 
+  
+    moves++; 
+    matrixVals = getCurrentMatrixValues(); 
+    prevMatrix = matrixVals; 
+  
+    let col1 = arrayColumn(matrix, 0); 
+    let col2 = arrayColumn(matrix, 1); 
+    let col3 = arrayColumn(matrix, 2); 
+    let col4 = arrayColumn(matrix, 3); 
+    let row1 = matrix[0]; 
+    let row2 = matrix[1]; 
+    let row3 = matrix[2]; 
+    let row4 = matrix[3]; 
+  
+    if (e.key === "ArrowLeft") { 
+        moveLeft(row1); 
+        moveLeft(row2); 
+        moveLeft(row3); 
+        moveLeft(row4);
+        updateColors(); 
+
+    } 
+    if (e.key === "ArrowRight") { 
+        moveRight(row1); 
+        moveRight(row2); 
+        moveRight(row3); 
+        moveRight(row4); 
+        updateColors(); 
+    } 
+    if (e.key === "ArrowUp") { 
+        moveLeft(col1); 
+        moveLeft(col2); 
+        moveLeft(col3); 
+        moveLeft(col4); 
+        updateColors(); 
+    } 
+    if (e.key === "ArrowDown") { 
+        moveRight(col1); 
+        moveRight(col2); 
+        moveRight(col3); 
+        moveRight(col4); 
+        updateColors(); 
+    } 
+  
+    matrixVals = getCurrentMatrixValues(); 
+    availIndexes = updateAvailIndexes(); 
+    updateColors(); 
+  
+    let check = checkMatrixEquality(prevMatrix, matrixVals); 
+  
+    if (availIndexes.length === 0 && check === true) { 
+        gameOver("loose"); 
+    } 
+  
+    if (moves % moveFactor === 0) { 
+        generateNewBlock(); 
+    } 
+} 
+  
+setInterval(() => { 
+    availIndexes = updateAvailIndexes(); 
+    generateNewBlock(); 
+}, 8000); 
+  
+setTimeout(() => { 
+    options.push(16); 
+    setTimeout(() => { 
+        options.push(16); 
+        options.push(32); 
+        setTimeout(() => { 
+            options.push(16); 
+            options.push(32); 
+            options.push(64); 
+        }, 40000); 
+    }, 18000); 
+}, 120000); 
+  
+function getCurrentMatrixValues() { 
+    let gridItems = [ 
+        ...document.querySelectorAll(".grid-item"), 
+    ]; 
+    let matrix_grid = []; 
+    let row = []; 
+    for ( 
+        let index = 1; 
+        index < gridItems.length + 1; 
+        index++ 
+    ) { 
+        if (index % 4 === 0) { 
+            let item = gridItems[index - 1]; 
+            row.push(item.firstElementChild.innerText); 
+            matrix_grid.push(row); 
+            row = []; 
+        } else { 
+            let item = gridItems[index - 1]; 
+            row.push(item.firstElementChild.innerText); 
+        } 
+    } 
+    return matrix_grid; 
+} 
+  
+function shiftLeft(arr) { 
+    for (let i = 0; i < 4; i++) { 
+        for (let i = 1; i < 4; i++) { 
+            let currElement = arr[i].firstElementChild; 
+            let prevElement = arr[i - 1].firstElementChild; 
+            if (prevElement.innerText == 0) { 
+                prevElement.innerText = 
+                    currElement.innerText; 
+                currElement.innerText = ""; 
+            } 
+        } 
+    } 
+} 
+  
+function shiftRight(arr) { 
+    for (let i = 0; i < 4; i++) { 
+        for (let i = 2; i >= 0; i--) { 
+            let currElement = arr[i].firstElementChild; 
+            let nextElement = arr[i + 1].firstElementChild; 
+            if (nextElement.innerText == 0) { 
+                nextElement.innerText = 
+                    currElement.innerText; 
+                currElement.innerText = ""; 
+            } 
+        } 
+    } 
+} 
+  
+function moveRight(row) { 
+    shiftRight(row); 
+  
+    for (let i = 2; i >= 0; i--) { 
+        let currElement = row[i].firstElementChild; 
+        let nextElement = row[i + 1].firstElementChild; 
+        let val = parseInt(currElement.innerText); 
+        let nextVal = parseInt(nextElement.innerText); 
+        if (val === nextVal && val !== 0) { 
+            let newVal = val + nextVal; 
+            nextElement.innerText = newVal; 
+            currElement.innerText = ""; 
+            score = score + 2; 
+            score_val.innerText = score; 
+            if (newVal === 2048) { 
+                gameOver("Win"); 
+            } 
+        } 
+    } 
+  
+    shiftRight(row); 
+} 
+  
+function moveLeft(row) { 
+    shiftLeft(row); 
+  
+    for (let i = 1; i < 4; i++) { 
+        let currElement = row[i].firstElementChild; 
+        let prevElement = row[i - 1].firstElementChild; 
+        let val = parseInt(currElement.innerText); 
+        let prevVal = parseInt(prevElement.innerText); 
+        if (val === prevVal && val !== 0) { 
+            let newVal = val + prevVal; 
+            prevElement.innerText = newVal; 
+            currElement.innerText = ""; 
+            score = score + 2; 
+            score_val.innerText = score; 
+            if (newVal === 2048) { 
+                gameOver("Win"); 
+            } 
+        } 
+    } 
+  
+    shiftLeft(row); 
+} 
+  
+function updateAvailIndexes() { 
+    matrixValues = getCurrentMatrixValues(); 
+    let grid = []; 
+    for (let i = 0; i < 4; i++) { 
+        for (let j = 0; j < 4; j++) { 
+            if (matrixValues[i][j] == "") { 
+                grid.push([i, j]); 
+            } 
+        } 
+    } 
+    return grid; 
+} 
+  
+function generateNewBlock() { 
+    if (availIndexes.length !== 0) { 
+        let randInt = Math.floor( 
+            Math.random() * availIndexes.length 
+        ); 
+        let coords = availIndexes[randInt]; 
+        let randInt3 = Math.floor( 
+            Math.random() * options.length 
+        ); 
+        let ele = 
+            matrix[coords[0]][coords[1]].firstElementChild; 
+        ele.innerText = options[randInt3]; 
+        updateColors(); 
+    } 
+} 
+  
+function checkMatrixEquality(mat1, mat2) { 
+    for (let i = 0; i < 4; i++) { 
+        for (let j = 0; j < 4; j++) { 
+            if (mat1[i][j] !== mat2[i][j]) { 
+                return false; 
+            } 
+        } 
+    } 
+    return true; 
+} 
+  
+function gameOver(status) { 
+    if (status === "Win") { 
+        result.innerText = "You Won!!!"; 
+        result.style.color = "rgb(78, 236, 144)"; 
+    } else { 
+        result.innerText = "You Loose!!!"; 
+        result.style.color = "rgb(252, 51, 51)"; 
+    } 
+} 
+  
+function updateColors() { 
+    for (let i = 0; i < 4; i++) { 
+        for (let j = 0; j < 4; j++) { 
+            let elem = matrix[i][j].firstElementChild; 
+            elem.parentElement.classList.add("s2");
+            if (elem.innerText == 0) { 
+                elem.parentElement.style.backgroundImage = 
+                    colors[0]; 
+                elem.style.color = "black"; 
+            } else if (elem.innerText == 2) {
+                elem.style.color = "orange"; 
+                elem.parentElement.style.backgroundImage = 
+                    colors[1];
+            } else if (elem.innerText == 4) { 
+                elem.style.color = "white"; 
+                elem.parentElement.style.backgroundImage = 
+                    colors[2]; 
+            } else if (elem.innerText == 8) { 
+                elem.style.color = "black"; 
+                elem.parentElement.style.backgroundImage = 
+                    colors[3]; 
+            } else if (elem.innerText == 16) { 
+                elem.style.color = "black"; 
+                elem.parentElement.style.backgroundImage = 
+                    colors[4]; 
+            } else if (elem.innerText == 32) { 
+                elem.style.color = "white"; 
+                elem.parentElement.style.backgroundImage = 
+                    colors[5]; 
+            } else if (elem.innerText == 64) { 
+                elem.style.color = "white"; 
+                elem.parentElement.style.backgroundImage = 
+                    colors[6]; 
+            } else if (elem.innerText == 128) { 
+                elem.style.color = "white"; 
+                elem.parentElement.style.backgroundImage = 
+                    colors[7]; 
+            } else if (elem.innerText == 256) { 
+                elem.style.color = "white"; 
+                elem.parentElement.style.backgroundImage = 
+                    colors[8]; 
+            } else if (elem.innerText == 512) { 
+                elem.style.color = "black"; 
+                elem.parentElement.style.backgroundImage = 
+                    colors[9]; 
+            } else if (elem.innerText == 1024) { 
+                elem.style.color = "black"; 
+                elem.parentElement.style.backgroundImage = 
+                    colors[10]; 
+            } else if (elem.innerText == 2048) { 
+                elem.style.color = "white"; 
+                elem.parentElement.style.backgroundImage = 
+                    colors[11]; 
+            } 
+        } 
+    } 
+} 
+
+
+
+</script>
+
+
+
+
+</html>
