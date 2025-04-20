@@ -112,6 +112,89 @@
     }
 </style>
 <script>
+    let player1 = document.querySelector('.player1')
+    let player2 = document.querySelector('.player2')
+    let ball = document.querySelector('.ball')
+    let btn_info = document.querySelector('.btn-info')
+    let btn_menu = document.querySelector('.btn-menu')
+    let score = document.querySelector('.score')
+    let info = `Об игре:
+ - В игре ping-pong, чтобы победить, вам нужно, чтобы противник
+   пропустил шарик за себя
+Управление:
+ - Левый игрок: W и S
+ - Правый игрок: стрелочки вврх и вниз
+ - Чтобы подать: пробел
+ - Чтобы начать новую игру: R`
+    btn_info.addEventListener('click', function () {
+        alert(info)
+    })
+    btn_menu.addEventListener('click', function () {
+        window.close()
+    })
+    let pred = 'serve'
+    let status = 'serve'
+    let KP = {
+        'W': false,
+        'S': false,
+        'R': false,
+        '_': false,
+        'U': false,
+        'D': false,
+        'P': false,
+    }
+    document.addEventListener('keydown', function (event) {
+        if (event.code == 'KeyW') {
+            KP['W'] = true
+        } elif (event.code == 'KeyS') {
+            KP['S'] = true
+        } elif (event.code == 'KeySpace') {
+            KP['_'] = true
+        } elif (event.code == 'KeyR') {
+            KP['R'] = true
+        } elif (event.code == 'KeyUp') {
+            KP['U'] = true
+        } elif (event.code == 'KeyDown') {
+            KP['D'] = true
+        } elif (event.code == 'KeyP') {
+            KP['P'] = true
+        }
+    })
+    document.addEventListener('keyup', function (event) {
+        if (event.code == 'KeyW') {
+            KP['W'] = false
+        } elif (event.code == 'KeyS') {
+            KP['S'] = false
+        } elif (event.code == 'KeySpace') {
+            KP['_'] = false
+        } elif (event.code == 'KeyUp') {
+            KP['U'] = false
+        } elif (event.code == 'KeyDown') {
+            KP['D'] = false
+        } elif (event.code == 'KeyR') {
+            KP['R'] = false
+        } elif (event.code == 'KeyP') {
+            KP['P'] = false
+        }
+    })
+    let t = getTime()
+    function main_loop() {
+        if (status == 'serve') {
+            if (KP['_']) {
+                
+            }
+        } elif (status == 'scoring') {
 
+        } elif (status == 'wining') {
+
+        } else {
+            if (KP['P']) {
+                
+            } elif (KP['R']) {
+                
+            }
+        }
+    }
+    setInterval(main_loop, 17)
 </script>
 </html>
