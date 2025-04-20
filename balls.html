@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Алго шарики!</title>
+    <link rel="stylesheet" href="balls_css.css">
+</head>
+
+<body class="light-theme">
+    <div class="menu">
+        <button class="button" id="temabtn">Сменить тему</button>
+        <button class="button" id="resetbtn">Сбросить игру</button>
+        <button class="button" id="uslbtn">Закончить игру</button>
+    </div>
+    
+    <canvas id="game" width="500" height="500"></canvas>
+    
+    <div>
+        <label for="difficult">Выберите уровень сложности:</label>
+        <select id="difficult">
+            <option value="easy">изи (10 шаров)</option>
+            <option value="medium">нормал (20 шаров)</option>
+            <option value="hard">хард (30 шаров)</option>
+        </select>
+    </div>
+
+    <div id="message">Удалите шарики цвета: <span id="tColor"></span></div>
+    <div id="losemsg">Ты проиграл! Неправильный цвет!</div>
+    <div id="winmsg">Ты выиграл за <span id="timeT"></span> секунд(ы)!</div>
+    <div id="checkmsg"></div>
+    <div id="timer">Время: <span id="gametime">0</span> секунд(ы)</div>
+</body>
+<script src="balls_js.js"></script>
+</html>
