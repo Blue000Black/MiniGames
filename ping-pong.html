@@ -117,7 +117,7 @@
     let ball = document.querySelector('.ball')
     let btn_info = document.querySelector('.btn-info')
     let btn_menu = document.querySelector('.btn-menu')
-    let score = document.querySelector('.score')
+    let score = document.querySelector('.count')
     let info = `Об игре:
  - В игре ping-pong, чтобы победить, вам нужно, чтобы противник
    пропустил шарик за себя
@@ -149,6 +149,8 @@
     let by = 445
     let p1y = 345
     let p2y = 345
+    let s1 = 0
+    let s2 = 0
     document.addEventListener('keydown', function (event) {
         if (event.code == 'KeyW') {
             kp.w = true
@@ -198,23 +200,29 @@
     function randint(min, max) {
         return Math.round(Math.random() * (max - min) + min)
     }
-    let t = Date.now()
+    let tn = 0
+    let t = 0
     function main_loop() {
+        t += 1
         if (status == 'serve') {
             if (kp._) {
                 status = 'game'
-                bsx = randint(-20, 20)
-                bsy = randint(-20, 20)
+                bsx = randint(-10, 10)
+                bsy = randint(-10, 10)
             }
-            if (kp.p & Date.now() - t > 300) {
-                t = Date.now()
+            if (kp.p & tn - t > 30) {
+                t = tn
                 pred = status
                 status = 'paused'
                 alert('Paused!')
             }
         } else if (status == 'game') {
-            if (kp.p & Date.now() - t > 300) {
-                t = Date.now()
+            bx += bsx
+            by += bsy
+            ball.style.left = `${bx}px`
+            ball.style.top = `${by}px`
+            if (kp.p & tn - t > 30) {
+                t = tn
                 pred = status
                 status = 'paused'
                 alert('Paused!')
@@ -252,18 +260,62 @@
                 bsy *= -1
             }
             if (35 <= bx <= 40 & (0 <= p1y - by <= 10 | 0 <= by - p1y <= 200)) {
-                bsx *= -1
+                bsx = Math.abs(bsx) + 0.5
             }
             if (1415 <= bx + 10 <= 1420 & (0 <= p2y - by <= 10 | 0 <= by - p2y <= 200)) {
-                bsx *= -1
+                bsx = 0 - Math.abs(bsx) - 0.5
             }
-            bx += bsx
-            by += bsy
-            ball.style.left = `${bx}px`
-            ball.style.top = `${by}px`
+            if (bx <= 15) {
+                s1 += 1
+                if (s1 < 10) {
+                    let s1_ = `0${s1}`
+                } else {
+                    let s1_ = `${s1}`
+                }
+                if (s2 < 10) {
+                    let s2_ = `0${s2}`
+                } else {
+                    let s2_ = `${s2}`
+                }
+                bx = 715
+                by = 445
+                p1y = 345
+                p2y = 345
+                ball.style.left = '715px'
+                ball.style.top = '445px'
+                player1.style.top = '345px'
+                player2.style.top = '345px'
+                score.innerHTML = s1 + ':' + s2
+                status = 'serve'
+                alert('Правый игрок зарабатывает очко!')
+            }
+            if (bx >= 1425) {
+                s2 += 1
+                if (s1 < 10) {
+                    let s1_ = `0${s1}`
+                } else {
+                    let s1_ = `${s1}`
+                }
+                if (s2 < 10) {
+                    let s2_ = `0${s2}`
+                } else {
+                    let s2_ = `${s2}`
+                }
+                bx = 715
+                by = 445
+                p1y = 345
+                p2y = 345
+                ball.style.left = '715px'
+                ball.style.top = '445px'
+                player1.style.top = '345px'
+                player2.style.top = '345px'
+                score.innerHTML = s1 + ':' + s2
+                status = 'serve'
+                alert('Левый игрок зарабатывает очко!')
+            }
         } else if (status == 'paused') {
-            if (kp.p & Date.now() - t > 300) {
-                t = Date.now()
+            if (kp.p & tn - t > 30) {
+                t = tn
                 status = 'pred'
                 alert('Play!')
             }
@@ -280,6 +332,9 @@
                 player2.style.top = '345px'
                 alert('Restarted!')
             }
+        }
+        if (tn > 99999) {
+            tn = 0
         }
     }
     setInterval(main_loop, 17)
