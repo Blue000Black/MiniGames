@@ -23,7 +23,7 @@
 <style>
     body {
         width: 1440px;
-        height: 1024px;
+        height: 850px;
         padding: 10px;
         border-radius: 5px;
         background-color: rgb(212, 212, 212);
@@ -134,64 +134,151 @@
     })
     let pred = 'serve'
     let status = 'serve'
-    let KP = {
-        'W': false,
-        'S': false,
-        'R': false,
-        '_': false,
-        'U': false,
-        'D': false,
-        'P': false,
+    let kp = {
+        w: false,
+        s: false,
+        r: false,
+        _: false,
+        u: false,
+        d: false,
+        p: false,
     }
+    let bsx = 10
+    let bsy = 10
+    let bx = 715
+    let by = 445
+    let p1y = 345
+    let p2y = 345
     document.addEventListener('keydown', function (event) {
         if (event.code == 'KeyW') {
-            KP['W'] = true
-        } elif (event.code == 'KeyS') {
-            KP['S'] = true
-        } elif (event.code == 'KeySpace') {
-            KP['_'] = true
-        } elif (event.code == 'KeyR') {
-            KP['R'] = true
-        } elif (event.code == 'KeyUp') {
-            KP['U'] = true
-        } elif (event.code == 'KeyDown') {
-            KP['D'] = true
-        } elif (event.code == 'KeyP') {
-            KP['P'] = true
+            kp.w = true
+        }
+        if (event.code == 'KeyS') {
+            kp.s = true
+        }
+        if (event.code == 'Space') {
+            kp._ = true
+        }
+        if (event.code == 'KeyR') {
+            kp.r = true
+        }
+        if (event.code == 'ArrowUp') {
+            kp.u = true
+        }
+        if (event.code == 'ArrowDown') {
+            kp.d = true
+        }
+        if (event.code == 'KeyP') {
+            kp.p = true
         }
     })
     document.addEventListener('keyup', function (event) {
         if (event.code == 'KeyW') {
-            KP['W'] = false
-        } elif (event.code == 'KeyS') {
-            KP['S'] = false
-        } elif (event.code == 'KeySpace') {
-            KP['_'] = false
-        } elif (event.code == 'KeyUp') {
-            KP['U'] = false
-        } elif (event.code == 'KeyDown') {
-            KP['D'] = false
-        } elif (event.code == 'KeyR') {
-            KP['R'] = false
-        } elif (event.code == 'KeyP') {
-            KP['P'] = false
+            kp.w = false
+        }
+        if (event.code == 'KeyS') {
+            kp.s = false
+        }
+        if (event.code == 'Space') {
+            kp._ = false
+        }
+        if (event.code == 'ArrowUp') {
+            kp.u = false
+        }
+        if (event.code == 'ArrowDown') {
+            kp.d = false
+        }
+        if (event.code == 'KeyR') {
+            kp.r = false
+        }
+        if (event.code == 'KeyP') {
+            kp.p = false
         }
     })
-    let t = getTime()
+    function randint(min, max) {
+        return Math.round(Math.random() * (max - min) + min)
+    }
+    let t = Date.now()
     function main_loop() {
         if (status == 'serve') {
-            if (KP['_']) {
-                
+            if (kp._) {
+                status = 'game'
+                bsx = randint(-20, 20)
+                bsy = randint(-20, 20)
             }
-        } elif (status == 'scoring') {
-
-        } elif (status == 'wining') {
-
-        } else {
-            if (KP['P']) {
-                
-            } elif (KP['R']) {
-                
+            if (kp.p & Date.now() - t > 300) {
+                t = Date.now()
+                pred = status
+                status = 'paused'
+                alert('Paused!')
+            }
+        } else if (status == 'game') {
+            if (kp.p & Date.now() - t > 300) {
+                t = Date.now()
+                pred = status
+                status = 'paused'
+                alert('Paused!')
+            }
+            if (kp.r) {
+                score.innerHTML = '00:00'
+                status = 'serve'
+                bx = 715
+                by = 445
+                p1y = 345
+                p2y = 345
+                ball.style.left = '715px'
+                ball.style.top = '445px'
+                player1.style.top = '345px'
+                player2.style.top = '345px'
+                alert('Restarted!')
+            } 
+            if (kp.w & p1y > 75) {
+                p1y -= 10
+                player1.style.top = `${p1y}px`
+            }
+            if (kp.s & p1y < 665) {
+                p1y += 10
+                player1.style.top = `${p1y}px`
+            }
+            if (kp.u & p2y > 75) {
+                p2y -= 10
+                player2.style.top = `${p2y}px`
+            }
+            if (kp.d & p2y < 665) {
+                p2y += 10
+                player2.style.top = `${p2y}px`
+            }
+            if (by <= 65 | by >= 865) {
+                bsy *= -1
+            }
+            if (35 <= bx <= 40 & (0 <= p1y - by <= 10 | 0 <= by - p1y <= 200)) {
+                bsx *= -1
+            }
+            if (1415 <= bx + 10 <= 1420 & (0 <= p2y - by <= 10 | 0 <= by - p2y <= 200)) {
+                bsx *= -1
+            }
+            bx += bsx
+            by += bsy
+            ball.style.left = `${bx}px`
+            ball.style.top = `${by}px`
+        } else if (status == 'paused') {
+            if (kp.p & Date.now() - t > 300) {
+                t = Date.now()
+                status = 'pred'
+                alert('Play!')
+            }
+            if (kp.r) {
+                score.innerHTML = '00:00'
+                status = 'serve'
+                bx = 715
+                by = 445
+                p1y = 345
+                p2y = 345
+                ball.style.left = '715px'
+                ball.style.top = '445px'
+                player1.style.top = '345px'
+                player2.style.top = '345px'
+                alert('Restarted!')
             }
         }
     }
