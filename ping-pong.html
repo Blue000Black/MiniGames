@@ -151,6 +151,8 @@
     let p2y = 345
     let s1 = 0
     let s2 = 0
+    let s1_ = '00'
+    let s2_ = '00'
     document.addEventListener('keydown', function (event) {
         if (event.code == 'KeyW') {
             kp.w = true
@@ -197,23 +199,24 @@
             kp.p = false
         }
     })
-    function randint(min, max) {
-        return Math.round(Math.random() * (max - min) + min)
+    function rand(min, max) {
+        return Math.random() * (max - min) + min
     }
     let tn = 0
     let t = 0
     function main_loop() {
-        t += 1
+        tn += 1
         if (status == 'serve') {
             if (kp._) {
                 status = 'game'
-                bsx = randint(-10, 10)
-                bsy = randint(-10, 10)
+                bsx = rand(-10, 10)
+                bsy = rand(-10, 10)
             }
-            if (kp.p & tn - t > 30) {
+            if (kp.p && tn - t > 30) {
                 t = tn
                 pred = status
                 status = 'paused'
+                kp.p = false
                 alert('Paused!')
             }
         } else if (status == 'game') {
@@ -221,10 +224,11 @@
             by += bsy
             ball.style.left = `${bx}px`
             ball.style.top = `${by}px`
-            if (kp.p & tn - t > 30) {
+            if (kp.p && tn - t > 30) {
                 t = tn
                 pred = status
                 status = 'paused'
+                kp.p = false
                 alert('Paused!')
             }
             if (kp.r) {
@@ -238,45 +242,47 @@
                 ball.style.top = '445px'
                 player1.style.top = '345px'
                 player2.style.top = '345px'
+                kp.r = false
                 alert('Restarted!')
             } 
-            if (kp.w & p1y > 75) {
+            if (kp.w && p1y > 75) {
                 p1y -= 10
                 player1.style.top = `${p1y}px`
             }
-            if (kp.s & p1y < 665) {
+            if (kp.s && p1y < 665) {
                 p1y += 10
                 player1.style.top = `${p1y}px`
             }
-            if (kp.u & p2y > 75) {
+            if (kp.u && p2y > 75) {
                 p2y -= 10
                 player2.style.top = `${p2y}px`
             }
-            if (kp.d & p2y < 665) {
+            if (kp.d && p2y < 665) {
                 p2y += 10
                 player2.style.top = `${p2y}px`
             }
-            if (by <= 65 | by >= 865) {
+            if (by <= 65 || by >= 865) {
                 bsy *= -1
             }
-            if (35 <= bx <= 40 & (0 <= p1y - by <= 10 | 0 <= by - p1y <= 200)) {
+            if (20 <= bx && bx <= 40 && (0 <= p1y - by && p1y - by <= 10 || 0 <= by - p1y && by - p1y <= 200)) {
                 bsx = Math.abs(bsx) + 0.5
             }
-            if (1415 <= bx + 10 <= 1420 & (0 <= p2y - by <= 10 | 0 <= by - p2y <= 200)) {
+            if (1410 <= bx + 10 && bx + 10 <= 1430 && (0 <= p2y - by && p2y - by <= 10 || 0 <= by - p2y && by - p2y <= 200)) {
                 bsx = 0 - Math.abs(bsx) - 0.5
             }
             if (bx <= 15) {
-                s1 += 1
+                s2 += 1
                 if (s1 < 10) {
-                    let s1_ = `0${s1}`
+                    s1_ = `0${s1}`
                 } else {
-                    let s1_ = `${s1}`
+                    s1_ = `${s1}`
                 }
                 if (s2 < 10) {
-                    let s2_ = `0${s2}`
+                    s2_ = `0${s2}`
                 } else {
-                    let s2_ = `${s2}`
+                    s2_ = `${s2}`
                 }
+                console.log(s1_ + ':' + s2_)
                 bx = 715
                 by = 445
                 p1y = 345
@@ -285,21 +291,21 @@
                 ball.style.top = '445px'
                 player1.style.top = '345px'
                 player2.style.top = '345px'
-                score.innerHTML = s1 + ':' + s2
+                score.innerHTML = s1_ + ':' + s2_
                 status = 'serve'
                 alert('Правый игрок зарабатывает очко!')
             }
             if (bx >= 1425) {
-                s2 += 1
+                s1 += 1
                 if (s1 < 10) {
-                    let s1_ = `0${s1}`
+                    s1_ = `0${s1}`
                 } else {
-                    let s1_ = `${s1}`
+                    s1_ = `${s1}`
                 }
                 if (s2 < 10) {
-                    let s2_ = `0${s2}`
+                    s2_ = `0${s2}`
                 } else {
-                    let s2_ = `${s2}`
+                    s2_ = `${s2}`
                 }
                 bx = 715
                 by = 445
@@ -309,14 +315,15 @@
                 ball.style.top = '445px'
                 player1.style.top = '345px'
                 player2.style.top = '345px'
-                score.innerHTML = s1 + ':' + s2
+                score.innerHTML = s1_ + ':' + s2_
                 status = 'serve'
                 alert('Левый игрок зарабатывает очко!')
             }
         } else if (status == 'paused') {
-            if (kp.p & tn - t > 30) {
+            if (kp.p && tn - t > 30) {
                 t = tn
-                status = 'pred'
+                status = pred
+                kp.p = false
                 alert('Play!')
             }
             if (kp.r) {
@@ -330,6 +337,7 @@
                 ball.style.top = '445px'
                 player1.style.top = '345px'
                 player2.style.top = '345px'
+                kp.r = false
                 alert('Restarted!')
             }
         }
